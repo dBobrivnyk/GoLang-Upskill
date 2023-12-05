@@ -16,6 +16,7 @@ func AreAnagram(a, b string) bool {
 		targetMap[letter]++
 	}
 
+	// use maps.Equal
 	for letter, sourceCount := range sourceMap {
 
 		if targetCount, ok := targetMap[letter]; !ok || sourceCount != targetCount {

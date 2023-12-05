@@ -50,3 +50,9 @@ func SortDogPtrByName(dogs []*Dog) {
 		return strings.ToLower(dogs[i].Name) < strings.ToLower(dogs[j].Name)
 	})
 }
+
+// missing sort interface implementation
+// implement sort interface for []Dog structure to sort by age + write ut
+// you can define new type for that
+// type Dogs []Dog
+// see: https://medium.com/@kdnotes/sort-sort-interface-in-golang-1d263d96956d

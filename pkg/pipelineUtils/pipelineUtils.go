@@ -18,6 +18,7 @@ func TextProducer(pipe chan<- string, dataToProduce []string) {
 	close(pipe)
 }
 
+// self study: https://medium.com/justforfunc/why-are-there-nil-channels-in-go-9877cc0b2308
 func Merge2(textPipe <-chan string, numberPipe <-chan int) <-chan interface{} {
 	var counter, tmp = cap(textPipe) + cap(numberPipe), 0
 	res := make(chan interface{})
@@ -43,6 +44,7 @@ func Merge2(textPipe <-chan string, numberPipe <-chan int) <-chan interface{} {
 			}
 		}
 
+		//should be deferd
 		close(res)
 	}()
 
@@ -52,6 +54,9 @@ func Merge2(textPipe <-chan string, numberPipe <-chan int) <-chan interface{} {
 func Merge(textPipe <-chan string, numberPipe <-chan int) <-chan interface{} {
 	res := make(chan interface{})
 
+	// both loops should be run in separate goroutines
+	// to read in parallel
+	// currently second loop will start after textPipe will be closed
 	go func() {
 		for n := range textPipe {
 			res <- n
@@ -59,6 +64,7 @@ func Merge(textPipe <-chan string, numberPipe <-chan int) <-chan interface{} {
 		for n := range numberPipe {
 			res <- n
 		}
+		//should be deferd
 		close(res)
 	}()
 

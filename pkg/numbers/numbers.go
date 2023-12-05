@@ -25,3 +25,12 @@ func ExtendSliceIfLenEven(s *[]int, valToAppend int) {
 		*s = append(*s, valToAppend)
 	}
 }
+
+// other option:
+func ExtendSliceIfLenEven_v2(s []int, valToAppend int) []int {
+	if len(s)%2 == 0 {
+		s = append(s, valToAppend)
+	}
+
+	return s
+}

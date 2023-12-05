@@ -11,12 +11,14 @@ func StartGoroutine(i int) {
 	fmt.Println("goroutine:", i)
 }
 
+// channel is already safe
 type SafeChannel struct {
 	mu sync.Mutex
 	v  chan int
 }
 
 func (safeCh *SafeChannel) Write(i int, wg *sync.WaitGroup) {
+	//no need to use lock, reading and writing from channels is safe
 	safeCh.mu.Lock()
 	safeCh.v <- i
 	safeCh.mu.Unlock()
